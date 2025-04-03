@@ -2,7 +2,7 @@ interface TaskListProps {
     tasks?: any
 }
 
-const TaskList = ({tasks}) => {
+const TaskList = ({tasks}:TaskListProps) => {
     return (
         <div className="task-list">
             {tasks.length == 0 ? <p>No tasks yet</p> : null}
