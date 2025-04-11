@@ -1,8 +1,8 @@
-import { render } from "@testing-library/react";
+import { render,screen,fireEvent } from "@testing-library/react";
 import TaskForm from "./TaskForm";
 
 describe("TaskForm Component", ()=>{
-    test("renders an empty task form contining an input and button", ()=>{
+    test("renders an empty task form containing an input and button", ()=>{
         const emptyTaskForm = render(
             <TaskForm></TaskForm>
         )
@@ -14,5 +14,18 @@ describe("TaskForm Component", ()=>{
         expect(emptyTaskFormElement).toContainElement(emptyTaskFormInput)
         expect(emptyTaskFormElement).toContainElement(emptyTaskFormButton)
 
+    })
+    test("calls add task", ()=>{
+        const addTaskMock = vi.fn()
+
+        render(<TaskForm addTask={addTaskMock}/>)
+
+        const inputElm = screen.getByPlaceholderText("Add a new task")
+        const buttonElm = screen.getByRole("button")
+
+        fireEvent.change(inputElm, {target: {value: "DOING THINGS"}})
+        fireEvent.click(buttonElm)
+
+        expect(addTaskMock).toHaveBeenCalledWith("DOING THINGS")
     })
 })
