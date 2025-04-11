@@ -3,8 +3,8 @@ import { Task } from "./types"
 
 interface TaskListProps {
     tasks: Task[]
-    toggleComplete: (id:number) => void
-    deleteTask: (id:number) => void
+    toggleComplete: (id:string) => void
+    deleteTask: (id:string) => void
 }
 
 const TaskList: React.FC<TaskListProps> = ({tasks, toggleComplete, deleteTask}) => {

@@ -4,8 +4,9 @@ import TaskForm from "./TaskForm";
 describe("TaskForm Component", ()=>{
     test("renders an empty task form containing an input and button", ()=>{
         const emptyTaskForm = render(
-            <TaskForm></TaskForm>
+            <TaskForm addTask={()=>{}}></TaskForm>
         )
+        //TODO: refactor to use element roles instead of query selector
         const emptyTaskFormElement = emptyTaskForm.container.querySelector(".task-form");
         const emptyTaskFormInput = emptyTaskForm.container.querySelector("input")
         const emptyTaskFormButton = emptyTaskForm.container.querySelector("button")

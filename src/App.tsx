@@ -5,6 +5,8 @@ import {Task} from "./components/types.ts";
 
 function App() {
     //Use State Docs: https://react.dev/reference/react/useState
+
+    //TODO: try a refactor to try using useContext
     const [tasks, setTasks] = useState<Task[]>(() => {
         const storedTasks = localStorage.getItem("tasks")
         return storedTasks ? JSON.parse(storedTasks) : []
@@ -17,11 +19,16 @@ function App() {
         localStorage.setItem('tasks', JSON.stringify(tasks))
     }, [tasks])
 
+    const  generateRandomId = (length = 6) => {
+        return Math.random().toString(36).substring(2, length + 2);
+    }
     const addTask = (text:string) =>{
         //Trying out react useId hook to generate a unique identifier. docs: https://react.dev/reference/react/useId
-        //TODO:Why is the rule-of-hooks issue happening here?
+        //TODO:Why is the rule-of-hooks issue happening here? This isnt working
         // eslint-disable-next-line react-hooks/rules-of-hooks
-        const id = useId()
+        // const id = useId()
+        const id = generateRandomId()
+        console.log(id)
         const newTask:Task = {id,text, completed:false}
         //setTasks is a React.Dispatch Type so it contains a prevState. Link: https://stackoverflow.com/questions/54807454/what-is-prevstate-in-reactjs
         //This allows us to append the new task to the existing list easily.
@@ -47,8 +54,9 @@ function App() {
   return (
     <>
       <div>
-      <h1>Task Manager</h1>
-      <TaskList tasks={[]}></TaskList>
+          <h1>Task Manager</h1>
+          <TaskForm addTask={addTask}/>
+          <TaskList tasks={tasks} toggleComplete={toggleComplete} deleteTask={deleteTask}></TaskList>
       </div>
     </>
   )

@@ -2,8 +2,8 @@ import { Task } from "./types"
 
 interface TaskItemProps {
     task: Task
-    toggleComplete: (id: number) => void
-    deleteTask: (id: number) => void
+    toggleComplete: (id: string) => void
+    deleteTask: (id: string) => void
 }
 
 const TaskItem = ({task, toggleComplete, deleteTask}:TaskItemProps) => {
